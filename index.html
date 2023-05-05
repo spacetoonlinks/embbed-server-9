@@ -108,13 +108,16 @@ button {
     <h1>Generate Episode Server Lists</h1>
     <div>
       <label for="serverInput">Enter [Server9] Episode URLs:</label><br>
-      <textarea id="serverInput" rows="5" cols="150"></textarea>
+      <textarea id="serverInput" rows="5" cols="150" placeholder="https://www.arteenz.com/plugins/server9/embed.php?url="></textarea>
     </div>
     <br>
     <div>
       <label for="server-count">Generating:</label>
       <input type="text" id="server-count" name="server-count" readonly>
       <label for="server-count">[Server9] HTML Episode Embbed</label>
+      <a href="https://spacetoonlinks.github.io/embbed-server-6/">[Server6]</a>
+      <a href="https://spacetoonlinks.github.io/embbed-server-7/">[Server7]</a>
+      <a href="https://spacetoonlinks.github.io/embbed-server-8/">[Server8]</a>
     </div>
     <br>
     <div>
@@ -124,7 +127,7 @@ button {
     <br>
     <div>
       <label for="codeDisplay">Generated Code:</label><br>
-      <textarea id="codeDisplay" rows="9" cols="150" readonly></textarea>
+      <textarea id="codeDisplay" rows="9" cols="150" placeholder="<ul id=server9 class=serverEpisode>......</ul>" readonly></textarea>
     </div>
     <br>
     <button onclick="copyToClipboard()">Copy</button><br>
