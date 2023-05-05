@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Server List</title>
+    <style type="text/css">
+     /* General styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui;
+  margin: 0;
+  padding: 0;
+  background-color: #f7f7f7;
+  padding-top: 50px;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+button {
+  background-color: #3368ff;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  height: 100%;
+  display: none;
+  padding-top: 50px;
+}
+
+.popup-content {
+  background-color: white;
+  margin: auto;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 500px;
+  max-height: 80%;
+  overflow-y: auto;
+  text-align: center;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@media only screen and (min-width: 768px) { /* Apply styles for screens larger than 768px */
+  input[type="text"] {
+    width: 50px;
+    margin-right: 0px;
+    margin-bottom: 0;
+  }
+
+  label {
+    display: inline-block;
+    margin-right: 0px;
+    margin-bottom: 0;
+  }
+
+  button {
+    margin-bottom: 0;
+  }
+} 
+
+
+
+  </style>
+  </head>
+  <body>
+    <div style="text-align: center;">
+    <h1>Generate Episode Server Lists</h1>
+    <div>
+      <label for="serverInput">Enter [Server9] Episode URLs:</label><br>
+      <textarea id="serverInput" rows="5" cols="150"></textarea>
+    </div>
+    <br>
+    <div>
+      <label for="server-count">Generating:</label>
+      <input type="text" id="server-count" name="server-count" readonly>
+      <label for="server-count">[Server9] HTML Episode Embbed</label>
+    </div>
+    <br>
+    <div>
+      <button onclick="generateCode()">Generate HTML Code</button>
+      <button onclick="resetserverInput()">Reset</button><br>
+    </div>
+    <br>
+    <div>
+      <label for="codeDisplay">Generated Code:</label><br>
+      <textarea id="codeDisplay" rows="9" cols="150" readonly></textarea>
+    </div>
+    <br>
+    <button onclick="copyToClipboard()">Copy</button><br>
+    </div>
+
+    <script>
+    const serverUrlsInput = document.getElementById('serverInput');
+    const serverCountInput = document.getElementById('server-count');
+
+    serverUrlsInput.addEventListener('input', () => {
+      // Count the number of lines in the input
+      const numServers = serverUrlsInput.value.split('\n').length;
+
+      // Update the server count input with the calculated value
+      serverCountInput.value = numServers;
+    });
+    </script>
+
+    <script>
+      function generateCode() {
+        var serverInput = document.getElementById("serverInput").value;
+        var newserverListCount = parseInt(document.getElementById("server-count").value);
+        var servers = serverInput.split("\n");
+        var code = "<ul id=\"server9\" class=\"serverEpisode\">\n";
+        for (var i = 1; i <= newserverListCount; i++) {
+          code += "\t<li>\n";
+          code += "\t\t<div class=\"DagPlayOpt\" data-embed=\"" + servers[i-1] + "\" data-id=\"Server-" + i + "\">\n";
+          code += "\t\t\t<span>" + i + "</span>\n";
+          code += "\t\t</div>\n";
+          code += "\t</li>\n";
+        }
+        code += "</ul>";
+        document.getElementById("codeDisplay").innerHTML = code;
+      }
+      function copyToClipboard() {
+        // Select the text area
+        const textarea = document.getElementById("codeDisplay");
+        textarea.select();
+
+        // Copy to the clipboard
+        document.execCommand("copy");
+      }
+              function resetserverInput() {
+      document.getElementById("serverInput").value = "";
+      document.getElementById("server-count").value = "";
+      document.getElementById("codeDisplay").value = "";
+    }
+    </script>
+  </body>
+</html>
